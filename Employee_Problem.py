@@ -58,13 +58,13 @@ class Employee:
             writer = csv.writer(f2)
             for i in rows:
                 if i[0] == employee_name:
-                    writer.writerow([updated_info.name, updated_info.age, updated_info.department, updated_info.email, updated_info.phone_number])
+                    writer.writerow([updated_info.name, updated_info.age, updated_info.department, updated_info.email, updated_info.phone_no])
                 else:
                     writer.writerow(i)
 
         #updating_info_in_jsonfile
         with open('employee.json', "r") as f3:
-            data = json.load(f3)
+            data = [json.loads(line.strip()) for line in f3]
         
         for i in data:
             if i["name"] == employee_name:
@@ -74,4 +74,5 @@ class Employee:
             json.dump(data, f3, indent=4) 
 
 new_employee = Employee("lalit sangore", 22, "IT", "sangorelalit@gmail.com", "123-456-7890")
-
+updated_employee = Employee("lalit sangore", 31, "HR", "sangorelalit@gmail.com", "987-654-3210")
+new_employee.update_info("lalit sangore", updated_employee)
