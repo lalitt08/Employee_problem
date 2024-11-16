@@ -72,17 +72,19 @@ class Employee:
                     writer.writerow([updated_info.name, updated_info.age, updated_info.department, updated_info.email, updated_info.phone_no])
                 else:
                     writer.writerow(i)
-
-        #updating_info_in_jsonfile
-        with open('employee.json', "r") as f3:
-            data = [json.loads(line.strip()) for line in f3]
-        
+        # Updating_info_in_jsonfile
+        try:
+            with open('employee.json', "r") as f3:
+                data = json.load(f3)  
+        except (FileNotFoundError, json.JSONDecodeError):
+            data = []  
         for i in data:
             if i["name"] == employee_name:
                 i.update(vars(updated_info))
-        
+
         with open('employee.json', "w") as f3:
             json.dump(data, f3, indent=4) 
+
     
     def delete_info(self, employee_name):
         #delete from txt
